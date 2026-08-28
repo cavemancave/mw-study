@@ -16,3 +16,20 @@ last_edit_timestamp: false
 aux_links:
   "GitHub 仓库": "https://github.com/cavemancave/mw-study"
 aux_links_new_tab: true
+
+mermaid:
+  version: "10.9.1"
+
+callouts:
+  note:
+    title: 说明
+    color: blue
+  tip:
+    title: 建议
+    color: green
+  important:
+    title: 重点
+    color: purple
+  warning:
+    title: 注意
+    color: red
