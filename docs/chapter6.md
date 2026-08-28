@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 6 章：高性能通信与性能工程
+parent: 机器人通信中间件开发教程
+nav_order: 6
 ---
 
 # 第 6 章：高性能通信与性能工程

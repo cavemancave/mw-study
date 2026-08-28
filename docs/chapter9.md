@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 9 章：Multi-Agent 与分布式状态
+parent: 机器人通信中间件开发教程
+nav_order: 9
 ---
 
 # 第 9 章：Multi-Agent 与分布式状态

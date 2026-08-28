@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 8 章：录制、存储、索引与回放
+parent: 机器人通信中间件开发教程
+nav_order: 8
 ---
 
 # 第 8 章：录制、存储、索引与回放

@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 7 章：DAG、Taskflow 与时间同步
+parent: 机器人通信中间件开发教程
+nav_order: 7
 ---
 
 # 第 7 章：DAG、Taskflow 与时间同步

@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 2 章：现代 C++ 与 Linux 基础设施
+parent: 机器人通信中间件开发教程
+nav_order: 2
 ---
 
 # 第 2 章：现代 C++ 与 Linux 基础设施

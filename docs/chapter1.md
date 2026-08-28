@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 1 章：中间件全景与通信抽象
+parent: 机器人通信中间件开发教程
+nav_order: 1
 ---
 
 # 第 1 章：中间件全景与通信抽象

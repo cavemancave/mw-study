@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 5 章：ROS 2、DDS 与框架选型
+parent: 机器人通信中间件开发教程
+nav_order: 5
 ---
 
 # 第 5 章：ROS 2、DDS 与框架选型

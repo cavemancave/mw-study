@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 10 章：可靠性与可观测性
+parent: 机器人通信中间件开发教程
+nav_order: 10
 ---
 
 # 第 10 章：可靠性与可观测性

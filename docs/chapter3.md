@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 3 章：消息模型与数据契约
+parent: 机器人通信中间件开发教程
+nav_order: 3
 ---
 
 # 第 3 章：消息模型与数据契约

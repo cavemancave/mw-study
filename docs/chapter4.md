@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 4 章：发布订阅、QoS、发现与路由
+parent: 机器人通信中间件开发教程
+nav_order: 4
 ---
 
 # 第 4 章：发布订阅、QoS、发现与路由

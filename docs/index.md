@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 机器人通信中间件开发教程
+nav_order: 1
+has_children: true
 ---
 
 # 机器人通信中间件开发教程

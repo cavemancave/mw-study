@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 第 11 章：综合项目与面试
+parent: 机器人通信中间件开发教程
+nav_order: 11
 ---
 
 # 第 11 章：综合项目与面试

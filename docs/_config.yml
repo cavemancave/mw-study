@@ -1,5 +1,18 @@
 title: 机器人通信中间件开发教程
 description: 面向 C++ 和 Linux 软件开发者的机器人通信中间件学习教程
-theme: jekyll-theme-cayman
+remote_theme: just-the-docs/just-the-docs
 markdown: kramdown
 lang: zh-CN
+
+color_scheme: light
+search_enabled: true
+heading_anchors: true
+nav_sort: case_insensitive
+nav_fold: true
+back_to_top: true
+back_to_top_text: 返回顶部
+last_edit_timestamp: false
+
+aux_links:
+	"GitHub 仓库": "https://github.com/cavemancave/mw-study"
+aux_links_new_tab: true
