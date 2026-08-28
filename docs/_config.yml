@@ -14,5 +14,5 @@ back_to_top_text: 返回顶部
 last_edit_timestamp: false
 
 aux_links:
-	"GitHub 仓库": "https://github.com/cavemancave/mw-study"
+  "GitHub 仓库": "https://github.com/cavemancave/mw-study"
 aux_links_new_tab: true
