@@ -51,15 +51,15 @@ nav_order: 5
 按一个熟练 C++ 工程师 1 人月 ≈ 20 个有效工作日估算（这些数字是**量级参考**，不是承诺）：
 
 $$
-\begin{aligned}
-\text{IDL + 多语言代码生成} &\approx 6\text{–}10\ \text{人月}\\
-\text{发现协议（含多网卡、跨网段、掉线清理）} &\approx 4\text{–}8\ \text{人月}\\
-\text{可靠传输与 QoS（重传、心跳、匹配诊断）} &\approx 8\text{–}15\ \text{人月}\\
-\text{录制回放（格式 + 索引 + 恢复 + 工具）} &\approx 6\text{–}10\ \text{人月}\\
-\text{可视化工具} &\approx 12\text{+}\ \text{人月}\\
+\begin{array}{lcl}
+\text{IDL + 多语言代码生成} & \approx & 6\text{–}10\ \text{人月}\\
+\text{发现协议（含多网卡、跨网段、掉线清理）} & \approx & 4\text{–}8\ \text{人月}\\
+\text{可靠传输与 QoS（重传、心跳、匹配诊断）} & \approx & 8\text{–}15\ \text{人月}\\
+\text{录制回放（格式 + 索引 + 恢复 + 工具）} & \approx & 6\text{–}10\ \text{人月}\\
+\text{可视化工具} & \approx & 12\text{+}\ \text{人月}\\
 \hline
-\text{合计（不含维护、文档、生态适配）} &\approx 36\text{–}55\ \text{人月}
-\end{aligned}
+\text{合计（不含维护、文档、生态适配）} & \approx & 36\text{–}55\ \text{人月}
+\end{array}
 $$
 
 而且这只是**第一版能跑**的成本。真正的成本在后面：五年内的多平台适配、内核版本变化、安全漏洞修复、新人上手成本。

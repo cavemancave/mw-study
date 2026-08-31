@@ -1,0 +1,29 @@
+<!--
+  数学公式渲染（MathJax 3）。
+  kramdown 把块级 $$...$$ 编译成 \[...\]，而行内 $...$ 原样输出为文本，
+  所以两组分隔符都要启用；代码块由 skipHtmlTags 中的 pre/code 排除。
+-->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'annotation', 'annotation-xml'],
+      ignoreHtmlClass: 'highlighter-rouge|language-mermaid'
+    },
+    // 让 \text{中文} 使用页面字体，否则 MathJax 自带字体渲染不出汉字
+    chtml: { mtextInheritFont: true },
+    svg: { mtextInheritFont: true }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+<style>
+  mjx-container[display="true"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+</style>
