@@ -98,6 +98,7 @@ int main(int argc, char** argv) {
 
     std::uint64_t publish_failed = 0;
     std::uint64_t pool_empty = 0;
+    std::uint64_t missed_ticks = 0;  // 发布循环没跟上目标周期的次数
     Ticker ticker(static_cast<double>(rate_hz));
     const std::uint64_t start = now_ns();
 
@@ -105,7 +106,7 @@ int main(int argc, char** argv) {
         BufferPtr buffer = pool->acquire();
         if (!buffer) {
             ++pool_empty;  // 池耗尽说明下游还没释放上一批数据，是真实的背压信号
-            ticker.sleep_until_next();
+            if (ticker.sleep_until_next()) ++missed_ticks;
             continue;
         }
         buffer->resize(static_cast<std::size_t>(payload_bytes));
@@ -115,7 +116,7 @@ int main(int argc, char** argv) {
         message->payload = std::move(buffer);
         message->publish_ns = now_ns();
         if (!publisher.publish(std::shared_ptr<const Sample>(std::move(message)))) ++publish_failed;
-        ticker.sleep_until_next();
+        if (ticker.sleep_until_next()) ++missed_ticks;
     }
 
     const std::uint64_t publish_done = now_ns();
@@ -127,6 +128,12 @@ int main(int argc, char** argv) {
                 count, static_cast<unsigned long long>(publish_failed),
                 static_cast<unsigned long long>(pool_empty), seconds,
                 static_cast<double>(count) / (seconds > 0 ? seconds : 1.0));
+    // missed_ticks 分不清两种原因：发布本身太慢，或 OS 定时器精度不够。
+    // 把 --payload 调到很小再看，如果仍然丢拍，就是定时器精度到顶了。
+    std::printf("ticker: missed_ticks=%llu (%.2f%% of %lld)\n",
+                static_cast<unsigned long long>(missed_ticks),
+                100.0 * static_cast<double>(missed_ticks) / static_cast<double>(count > 0 ? count : 1),
+                count);
     std::printf("pool: exhausted=%llu in_use=%zu\n",
                 static_cast<unsigned long long>(pool->exhausted_count()), pool->in_use());
 
