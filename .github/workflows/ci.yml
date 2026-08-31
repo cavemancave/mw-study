@@ -1,0 +1,53 @@
+name: code
+
+on:
+  push:
+    paths:
+      - 'code/**'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    paths:
+      - 'code/**'
+      - '.github/workflows/ci.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++, clang++]
+        build_type: [Debug, RelWithDebInfo]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: >
+          cmake -S code -B build
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+          -DRDB_WERROR=${{ matrix.build_type == 'Debug' && 'ON' || 'OFF' }}
+      - name: Build
+        run: cmake --build build --parallel
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  sanitizers:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [address, thread]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: >
+          cmake -S code -B build
+          -DCMAKE_BUILD_TYPE=Debug
+          -DRDB_SANITIZER=${{ matrix.sanitizer }}
+          -DRDB_BUILD_BENCH=OFF
+      - name: Build
+        run: cmake --build build --parallel
+      # sanitizer 下程序显著变慢，超时放宽；这里只验证正确性，不看性能数字。
+      - name: Test
+        run: ctest --test-dir build --output-on-failure --timeout 300
