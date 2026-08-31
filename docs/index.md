@@ -280,6 +280,40 @@ g++ -std=c++20 -O2 -g -pthread demo.cpp -o demo
 {: .warning }
 > 性能数据必须在**关闭 sanitizer** 的 `-O2` 构建下测量。ASan 通常让程序慢 2 倍以上，TSan 可能慢 5–15 倍，用它们测出的延迟没有参考价值。
 
+## 配套代码：机器人数据总线实验室
+
+书里的实现都在仓库的 [`code/`](https://github.com/cavemancave/mw-study/tree/main/code) 目录里，可以直接编译、跑测试、跑压测。
+它不是又一个中间件框架，而是一组**最小可运行、可测量、可失败**的教学实现。
+
+```bash
+git clone https://github.com/cavemancave/mw-study.git
+cd mw-study
+cmake -S code -B build -DCMAKE_BUILD_TYPE=Debug -DRDB_WERROR=ON
+cmake --build build --parallel
+ctest --test-dir build --output-on-failure
+```
+
+| 模块 | 对应章节 | 它证明了什么 |
+| --- | --- | --- |
+| `rdb/concurrency/bounded_queue.h` | 2、4 | 三种溢出策略、优雅关闭、队列高水位可观测 |
+| `rdb/concurrency/spsc_ring.h` | 2、6 | acquire/release 内存序与缓存行填充的实际效果 |
+| `rdb/concurrency/thread_pool.h` | 2、7 | 有界任务队列、任务被拒绝的返回路径 |
+| `rdb/msg/header.h` | 3、8 | 定长小端消息头、schema 指纹、解码必须校验 |
+| `rdb/msg/buffer_pool.h` | 3、6 | 大消息复用内存、共享句柄扇出、池耗尽即背压信号 |
+| `rdb/transport/framing.h` | 2、4 | 字节流分帧与长度前缀的安全上限 |
+| `rdb/bus/qos.h` | 4、5 | RxO 兼容规则：可靠性、持久性、deadline |
+| `rdb/bus/topic_bus.h` | 4 | 发布订阅内核：订阅者隔离、latch、lifespan |
+| `rdb/metrics/histogram.h` | 6、10 | 用 p50/p90/p99/p999 描述延迟 |
+
+[`code/README.md`](https://github.com/cavemancave/mw-study/blob/main/code/README.md) 里列出了 6 个实验和每个实验的**可观察验收标准**，例如：
+
+- 实验 2：把 `sub[0]` 人为拖慢 5ms/条，验证它的 `dropped > 0` 而其他订阅者 `dropped == 0`，且发布速率不下降。
+- 实验 3：同一条链路分别用 Reliable 和 BestEffort 跑一遍，把两组 p50/p99/p999 和丢弃数记成一张表。
+
+{: .note }
+> 代码在 GitHub Actions 上用 GCC 与 Clang、Debug 与 RelWithDebInfo、ASan 与 TSan 六组配置持续验证。
+> 目前覆盖第 2、3、4、6 章的核心机制；跨进程传输、录制回放与多机状态同步会在后续加入。
+
 ## 如何检验学习效果
 
 不要用"读完了"衡量，用下面三个标准：

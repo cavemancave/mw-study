@@ -15,6 +15,7 @@ last_edit_timestamp: false
 
 aux_links:
   "GitHub 仓库": "https://github.com/cavemancave/mw-study"
+  "配套代码": "https://github.com/cavemancave/mw-study/tree/main/code"
 aux_links_new_tab: true
 
 mermaid:
